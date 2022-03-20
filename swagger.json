@@ -1,0 +1,127 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is a simple game that was called Rock Paper Scissors",
+    "version": "1.0.0",
+    "title": "Rock Paper Scissors"
+  },
+  "host": "fsw-challenge-ch10-api.herokuapp.com",
+  "tags": [
+    {
+      "name": "Database Test",
+      "description": "For database testing only"
+    }
+  ],
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "paths": {
+    "/test-accounts": {
+      "get": {
+        "tags": [
+          "Database Test"
+        ],
+        "summary": "For User_accounts table testing",
+        "description": "You can use it to get all the data from User_accounts table",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 200
+                },
+                "msg": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer",
+                        "example": 1
+                      },
+                      "username": {
+                        "type": "string",
+                        "example": "grotius.hasiholan"
+                      },
+                      "password": {
+                        "type": "string",
+                        "example": "(encrypted password)"
+                      },
+                      "email": {
+                        "type": "string",
+                        "example": "grotius.hasiholan@gmail.com"
+                      },
+                      "description": {
+                        "type": "string",
+                        "example": "I'm 24 and I can't take it anymore..."
+                      },
+                      "imageLink": {
+                        "type": "string",
+                        "example": "savana.jpg"
+                      },
+                      "point": {
+                        "type": "integer",
+                        "example": 100
+                      },
+                      "createdAt": {
+                        "type": "string",
+                        "example": "2022-02-25T16:00:17.374Z"
+                      },
+                      "updatedAt": {
+                        "type": "string",
+                        "example": "2022-02-25T16:00:17.374Z"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Fatal error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 500
+                },
+                "msg": {
+                  "type": "object",
+                  "example": "Fatal error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "petstore_auth": {
+      "type": "oauth2",
+      "authorizationUrl": "http://petstore.swagger.io/oauth/dialog",
+      "flow": "implicit",
+      "scopes": {
+        "write:pets": "modify pets in your account",
+        "read:pets": "read your pets"
+      }
+    },
+    "api_key": {
+      "type": "apiKey",
+      "name": "api_key",
+      "in": "header"
+    }
+  }
+}
