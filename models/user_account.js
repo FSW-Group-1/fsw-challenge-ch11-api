@@ -24,9 +24,9 @@ module.exports = (sequelize, DataTypes) => {
 
     static encrypt = (password) => bcrypt.hashSync(password, 10)
 
-    static register = ({username, password, email, avatar_public_id, avatar_url}) => {
+    static register = ({username, password, email, imageLink, imageID}) => {
       const encryptedPassword = this.#encrypt(password)
-      return this.create({username, password: encryptedPassword, email, avatar_public_id, avatar_url})
+      return this.create({username, password: encryptedPassword, email, imageLink, imageID})
     }
 
     checkPassword = (password) => bcrypt.compareSync(password, this.password)
@@ -74,6 +74,7 @@ module.exports = (sequelize, DataTypes) => {
     email: DataTypes.STRING,
     description: DataTypes.STRING,
     imageLink: DataTypes.STRING,
+    imageID: DataTypes.STRING,
     point: {
       type: DataTypes.INTEGER,
       defaultValue: 0

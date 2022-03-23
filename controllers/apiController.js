@@ -3,7 +3,7 @@ const { Op } = require('sequelize')
 const {cloudinary} = require('../utils/cloudinary')
 module.exports = {
     register: async (req, res) => {
-        const { username, email, password, avatar_public_id, avatar_url} = req.body
+        const { username, email, password, imageLink, imageID} = req.body
         
         //Validate 
         try {
@@ -181,7 +181,7 @@ module.exports = {
                 });
               }
             return res.status(200).json({
-                result: 'sucess',
+                result: 'success',
                 message: 'Showing all available user',
                 data: users
             })
