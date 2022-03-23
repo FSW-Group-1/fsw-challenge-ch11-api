@@ -1,7 +1,6 @@
 const { User_account, Details, Games } = require('../models')
 const { Op } = require('sequelize')
 const {cloudinary} = require('../utils/cloudinary')
-
 module.exports = {
     register: async (req, res) => {
         const { username, email, password, avatar_public_id, avatar_url} = req.body
