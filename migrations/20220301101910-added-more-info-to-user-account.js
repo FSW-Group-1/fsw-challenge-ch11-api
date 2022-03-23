@@ -27,6 +27,7 @@ module.exports = {
     try {
       await queryInterface.removeColumn('User_accounts', 'description');
       await queryInterface.removeColumn('User_accounts', 'imageLink');
+      await queryInterface.removeColumn('User_accounts', 'imageID');
       await queryInterface.removeColumn('User_accounts', 'point');
       return Promise.resolve();
     } catch (error) {
