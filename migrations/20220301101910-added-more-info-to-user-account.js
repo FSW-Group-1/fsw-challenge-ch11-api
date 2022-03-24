@@ -9,6 +9,9 @@ module.exports = {
       await queryInterface.addColumn('User_accounts', 'imageLink', {
         type: Sequelize.STRING,
       });
+      await queryInterface.addColumn('User_accounts', 'imageID', {
+        type: Sequelize.STRING,
+      });
       await queryInterface.addColumn('User_accounts', 'point', {
         type: Sequelize.INTEGER,
         defaultValue: 0
@@ -24,6 +27,7 @@ module.exports = {
     try {
       await queryInterface.removeColumn('User_accounts', 'description');
       await queryInterface.removeColumn('User_accounts', 'imageLink');
+      await queryInterface.removeColumn('User_accounts', 'imageID');
       await queryInterface.removeColumn('User_accounts', 'point');
       return Promise.resolve();
     } catch (error) {

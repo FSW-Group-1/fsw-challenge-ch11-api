@@ -1,33 +1,65 @@
 const { User_account, Details, Games } = require('../models')
 const { Op } = require('sequelize')
-
+const {cloudinary} = require('../utils/cloudinary')
 module.exports = {
     register: async (req, res) => {
-        const { username, email, password} = req.body
+        const { username, email, password, imageLink, imageID} = req.body
         
+        //Validate 
         try {
-            var user = await User_account.findOne({
-                where: {
-                    email
-                }
+            const user = await User_account.findOne({
+                where: {email}
             })
 
+            const validateEmail = (email) => {
+                return String(email)
+                  .toLowerCase()
+                  .match(
+                    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+                  );
+              };
+
             if(user){
-                // console.log('here')
                 return res.status(400).json({
                     result: 'failed',
                     message: 'Email already existed'
                 })
             }
-        } catch (error) {
-            return res.status(500).json({
-                result: 'failed',
-                error: error.message,
-              });
-        }
 
-        try {
-            await User_account.register(req.body)
+            if(!validateEmail(email)){
+                return res.status(400).json({
+                    result: 'failed',
+                    message: 'Please enter valid email address'
+                })
+            }
+
+            if(password.toString().length < 6){
+                return res.status(400).json({
+                    result: 'failed',
+                    message: 'Make sure your password is longer than 6 characters'
+                })
+            }
+
+            if(!username){
+                return res.status(400).json({
+                    result: 'failed',
+                    message: 'Please enter your username'
+                })
+            }
+
+            const cloud = await cloudinary.uploader.upload(req.body.avatar,{
+                folder: 'binarch11/avatar',
+                width: '150',
+                crop: 'scale',
+            })
+
+            await User_account.register({
+                email, 
+                username,
+                password, 
+                avatar_public_id: cloud.public_id,
+                avatar_url: cloud.secure_url
+            })
             res.status(201).json({
                 message: 'Account has successfully registered!',
                 data: {
@@ -35,12 +67,12 @@ module.exports = {
                 username,
                 }
             })
-                
+
         } catch (error) {
-            return res.status(400).json({
+            return res.status(500).json({
                 result: 'failed',
-                message: error.message
-            })
+                error: error.message,
+              });
         }   
     },
 
@@ -149,7 +181,7 @@ module.exports = {
                 });
               }
             return res.status(200).json({
-                result: 'sucess',
+                result: 'success',
                 message: 'Showing all available user',
                 data: users
             })
