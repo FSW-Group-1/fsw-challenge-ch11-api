@@ -1,6 +1,14 @@
 const { User_account, Details, Games } = require('../models')
+const fs = require('fs')
 const { Op } = require('sequelize')
 const {cloudinary} = require('../utils/cloudinary')
+
+function base(file){
+    var bitmap = fs.readFileSync(file)
+    var link = 'data:image/jpeg;base64,' + Buffer.from(bitmap).toString('base64')
+    return link
+}
+
 module.exports = {
     register: async (req, res) => {
         const { username, email, password, imageLink, imageID} = req.body
@@ -33,21 +41,15 @@ module.exports = {
                 })
             }
 
-            if(password.toString().length < 6){
-                return res.status(400).json({
-                    result: 'failed',
-                    message: 'Make sure your password is longer than 6 characters'
-                })
-            }
-
             if(!username){
                 return res.status(400).json({
                     result: 'failed',
                     message: 'Please enter your username'
                 })
             }
-
-            const cloud = await cloudinary.uploader.upload(req.body.avatar,{
+            const imageDummy = base('public/dummy.png')
+            
+            const cloud = await cloudinary.uploader.upload(imageDummy,{
                 folder: 'binarch11/avatar',
                 width: '150',
                 crop: 'scale',
@@ -57,8 +59,8 @@ module.exports = {
                 email, 
                 username,
                 password, 
-                avatar_public_id: cloud.public_id,
-                avatar_url: cloud.secure_url
+                imageID: cloud.public_id,
+                imageLink: cloud.secure_url
             })
             res.status(201).json({
                 message: 'Account has successfully registered!',

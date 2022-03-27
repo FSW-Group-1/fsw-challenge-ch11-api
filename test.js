@@ -5,14 +5,13 @@ const data = 'data:image/jpeg;base64,'
 
 function base(file){
     var bitmap = fs.readFileSync(file)
-    return Buffer.from(bitmap).toString('base64')
+    var link = 'data:image/jpeg;base64,' + Buffer.from(bitmap).toString('base64')
+    return link
 }
 
 try {
     var test = async() => {
-        var link  = base('./public/dummy.png')
-        console.log(link)
-        const cloud = await cloudinary.uploader.upload(`${data}${link}`,{
+        const cloud = await cloudinary.uploader.upload(base('./public/dummy.png'),{
             folder: 'binarch11/avatar',
             width: '150',
             crop: 'scale',
