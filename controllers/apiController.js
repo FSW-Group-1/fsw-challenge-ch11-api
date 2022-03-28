@@ -34,19 +34,25 @@ module.exports = {
         })
       }
 
+      if (!username || !email || !password) {
+        return res.status(400).json({
+          result: 'failed',
+          message: 'Please missing credentials!',
+        })
+      }
       if (!validateEmail(email)) {
         return res.status(400).json({
           result: 'failed',
           message: 'Please enter valid email address',
         })
       }
-
-      if (!username) {
+      if(password.length < 6){
         return res.status(400).json({
-          result: 'failed',
-          message: 'Please enter your username',
-        })
+            result: 'failed',
+            message: 'Please make your password bigger than 6 characters',
+          })
       }
+
       const imageDummy = base('public/dummy.png')
 
       const cloud = await cloudinary.uploader.upload(imageDummy, {
