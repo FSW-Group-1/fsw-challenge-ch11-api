@@ -134,9 +134,12 @@ module.exports = {
 
   updateProfile: async (req, res) => {
     try {
-      const { imageID, username, description } = req.body
+      const { imageID, username, description, imageLink } = req.body
       const id = req.user.id
-      const imageDummy = base('public/lirboyo.jpg')
+      // const imageDummy = base('public/dummy.png')
+      console.log(imageID)
+
+      let uploadedResponse = ''
 
       if (!id) {
         return res.status(400).json({
@@ -145,33 +148,38 @@ module.exports = {
         })
       }
 
-      const { resources } = await cloudinary.search.expression().sort_by('public_id').execute()
-      const userImage = resources.filter((resource) => {
-        return resource.public_id === imageID
-      })
+      if (imageID) {
+        const { resources } = await cloudinary.search.expression().sort_by('public_id').execute()
+        const userImage = resources.filter((resource) => {
+          return resource.public_id === imageID
+        })
 
-      //   // jika data image ada lakukan hapus
-      if (userImage) {
-        await cloudinary.uploader.destroy(imageID, () => {
-          console.log('berhasil delete')
+        //   // jika data image ada lakukan hapus
+        if (userImage) {
+          await cloudinary.uploader.destroy(imageID, () => {
+            console.log('berhasil delete')
+          })
+        }
+
+        uploadedResponse = await cloudinary.uploader.upload(imageLink, {
+          folder: 'binarch11/avatar',
+          width: '150',
+          crop: 'scale',
         })
       }
-
-      const uploadedResponse = await cloudinary.uploader.upload(imageDummy)
 
       const user = await User_account.update(
         {
           username,
           description,
-          imageLink: uploadedResponse.secure_url,
-          imageID: uploadedResponse.public_id,
+          imageLink: uploadedResponse?.secure_url,
+          imageID: uploadedResponse?.public_id,
         },
         { where: { id } }
       )
       res.status(200).json({
         result: 'success',
         message: 'Info sucessfully updated',
-        uploadedResponse,
       })
     } catch (error) {
       return res.status(500).json({
