@@ -46,3 +46,24 @@ describe('POST /api/login', () => {
             })
     })
 })
+
+describe('GET /api/verifyToken', () => {
+        test('test: token', done => {
+            const Authorization = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAxLCJlbWFpbCI6ImZhdXphbnRlc3RAZ21haWwuY29tIiwiaWF0IjoxNjQ4NDU2ODEyfQ.pcVDNXzE2YXAx4gTv1cpQiAJsrCgeEAZGe2kMDzNDKw';
+            const id = '101';
+            const email = 'fauzantest@gmail.com';
+            request(app)
+                .get('/api/VerifyToken')
+                .set( 'Authorization' , 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAxLCJlbWFpbCI6ImZhdXphbnRlc3RAZ21haWwuY29tIiwiaWF0IjoxNjQ4NDU2ODEyfQ.pcVDNXzE2YXAx4gTv1cpQiAJsrCgeEAZGe2kMDzNDKw')
+                .then(res => {
+                    expect(res.statusCode).toBe(200)
+                    expect(res.headers.Authorization).toMatch( Authorization )
+                    expect(res.body).toHaveProperty('data')
+                    expect(res.body.data).toHaveProperty('id')
+                    expect(res.body.data).toHaveProperty('email')
+                    expect(res.body.data.id).toEqual(id)
+                    expect(res.body.data.email).toEqual(email)
+                    done();
+                })
+        })
+    })

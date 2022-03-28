@@ -33,5 +33,21 @@
     "sequelize-cli": "^6.4.1",
     "supertest": "^6.2.2",
     "swagger-ui-express": "^4.3.0"
-  }
+  },
+  "main": "app.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FSW-Group-1/fsw-challenge-ch11-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FSW-Group-1/fsw-challenge-ch11-api/issues"
+  },
+  "homepage": "https://github.com/FSW-Group-1/fsw-challenge-ch11-api#readme",
+  "description": ""
 }
