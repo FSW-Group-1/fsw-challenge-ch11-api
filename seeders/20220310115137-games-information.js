@@ -16,6 +16,7 @@ module.exports = {
        name: 'Rock Paper Scissor',
        description: 'Permainan Gunting Batu Kertas',
        gameLink: '/rps',
+       imageLink: '/_next/static/media/rock-paper-scissor.d62d36bf.jpg',
        createdAt: new Date(),
        updatedAt: new Date()
      },
@@ -23,6 +24,7 @@ module.exports = {
        name: 'Ludo',
        description: 'Permainan Ludo',
        gameLink: '/ludo',
+       imageLink: '/_next/static/media/dummy.75d624b0.png',
        createdAt: new Date(),
        updatedAt: new Date()
      },
@@ -30,6 +32,7 @@ module.exports = {
        name: 'Snake and Ladder',
        description: "Permainan ular dan tangga",
        gameLink: '/snk',
+       imageLink: '/_next/static/media/dummy.75d624b0.png',
        createdAt: new Date(),
        updatedAt: new Date()
      },
@@ -37,6 +40,7 @@ module.exports = {
        name: 'Congklak',
        description: 'Permainan congklak',
        gameLink: '/congklak',
+       imageLink: '/_next/static/media/dummy.75d624b0.png',
        createdAt: new Date(),
        updatedAt: new Date()
      }
