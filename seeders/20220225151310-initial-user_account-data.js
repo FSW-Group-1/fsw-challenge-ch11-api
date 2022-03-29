@@ -14,7 +14,7 @@ const users = [
   }
 ]
 
-const user1 = [...Array(99)].map(user => (
+const user1 = [...Array(20)].map(user => (
   {
     username: faker.internet.userName(),
     password: User_account.encrypt(faker.internet.password()),
