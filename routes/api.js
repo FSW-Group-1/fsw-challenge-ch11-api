@@ -28,7 +28,7 @@ router.post('/search', api.search)
 router.get('/allgame', game.getAllGame)
 router.get('/leaderboard/:id', game.getLeaderboardGame)
 router.get('/gamedetail/:id', game.getGameDetails)
-router.post('/gamedetail/:id/update', game.updateGameDetails)
+router.post('/gamedetail/:id/update', restrict, authorize, game.updateGameDetails)
 router.get('/verifytoken', restrict, api.verify)
 
 
