@@ -2,6 +2,10 @@ const request = require('supertest')
 const app = require('../app')
 
 describe('POST /api/register', () => {
+    test('return status: 400 because of missing credential', done => {})
+    test('return status: 400 because of existing user', done => {})
+    test('return status: 400 because password is less than 6 characters', done => {})
+    test('return status: 400 because email is not in the right format', done => {})
     test('return status: 200 with a register profile', done => {
         const email = 'jk@gmail.com';
         const password = '123456';
@@ -21,10 +25,12 @@ describe('POST /api/register', () => {
                 done();
             })
     })
+    
 })
 
 describe('POST /api/login', () => {
-    test('attempt login success', done => {
+    test('return status: 400 login failed because the wrong credentials')
+    test('return status: 201 login success', done => {
         const email = 'jk@gmail.com';
         const password = '123456';
         // const username = 'dnd'
