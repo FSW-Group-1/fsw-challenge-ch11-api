@@ -125,3 +125,104 @@ describe('POST /api/login', () => {
             })
     })
 })
+
+describe('test: token', () => {
+    test('verifytoken', done => {
+        const id = 101;
+        const email = 'fauzantest@gmail.com';
+        const Auth = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTA3LCJlbWFpbCI6ImZhdXphbnRlc3QxQGdtYWlsLmNvbSIsImlhdCI6MTY0ODgwMDAxMn0.YARVD5GM4lDaUWf4Xg0wGaG2JqcCryOIib4SlD5-_3w'
+        request(app)
+            .get('/api/verifyToken')
+            .set('Authorization', Auth)
+            // .send({gameID, point})
+            .then(res => {
+                expect(res.statusCode).toBe(200)
+                expect(res.body.result).toHaveProperty('err')
+                expect(res.body.result).toHaveProperty('result')
+                expect(res.body.result.result).toHaveProperty('id')
+                expect(res.body.result.result).toHaveProperty('email')
+                expect(res.body.result.result.id).toEqual(id)
+                expect(res.body.result.result.email).toEqual(email)
+                done();
+            })
+        })
+    })
+
+    describe('GET /api/me', () => {
+        test('test: profile me', done => {
+            const Auth = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAxLCJlbWFpbCI6ImZhdXphbnRlc3RAZ21haWwuY29tIiwiaWF0IjoxNjQ4NDU2ODEyfQ.pcVDNXzE2YXAx4gTv1cpQiAJsrCgeEAZGe2kMDzNDKw';
+            const id = 101;
+            const username = 'fauzantest';
+            const email = 'fauzantest@gmail.com';
+            request(app)
+                .get('/api/me')
+                .set( 'Authorization' , Auth)
+                .then(res => {
+                    expect(res.statusCode).toBe(200)
+                    expect(res.body).toHaveProperty('result')
+                    expect(res.body).toHaveProperty('message')
+                    expect(res.body).toHaveProperty('data')
+                    expect(res.body.result).toEqual('Success')
+                    expect(res.body.message).toEqual('Here is your own info')
+                    expect(res.body.data).toHaveProperty('id')
+                    expect(res.body.data).toHaveProperty('username')
+                    expect(res.body.data).toHaveProperty('email')
+                    expect(res.body.data.id).toEqual(id)
+                    expect(res.body.data.username).toEqual(username)
+                    expect(res.body.data.email).toEqual(email)
+                    done();
+                })
+        })
+    })
+
+// jest.setTimeout(12000)
+
+    describe('GET /api/all', () => {
+        test('test: all user', done => {
+            const id = '101';
+            const username = 'fauzantest';
+            const email = 'fauzantest@gmail.com';
+            request(app)
+                .get('/api/all')
+                .then(res => {
+                    expect(res.statusCode).toBe(200)
+                    expect(res.body).toHaveProperty('result')
+                    expect(res.body).toHaveProperty('message')
+                    expect(res.body).toHaveProperty('data')
+                    expect(res.body.result).toEqual('Success')
+                    expect(res.body.message).toEqual('Showing all available user')
+                    expect(res.body.data).toHaveProperty('id')
+                    expect(res.body.data).toHaveProperty('username')
+                    expect(res.body.data).toHaveProperty('email')
+                    expect(res.body.data.id).toEqual(id)
+                    expect(res.body.data.username).toEqual(username)
+                    expect(res.body.data.email).toEqual(email)
+                    done();
+                })
+        })
+    })
+
+    describe('GET /api/user/101', () => {
+        test('test: user 101', done => {
+            const id = '101';
+            const email = 'fauzantest@gmail.com';
+            const username = 'fauzantest'
+            request(app)
+                .get('/api/user/101')
+                .then(res => {
+                    expect(res.statusCode).toBe(200)
+                    expect(res.body).toHaveProperty('result')
+                    expect(res.body).toHaveProperty('message')
+                    expect(res.body).toHaveProperty('data')
+                    expect(res.body.result).toEqual('Success')
+                    expect(res.body.message).toEqual('Successfully retrieved user')
+                    expect(res.body.data).toHaveProperty('id')
+                    expect(res.body.data).toHaveProperty('email')
+                    expect(res.body.data).toHaveProperty('username')
+                    expect(res.body.data.id).toEqual(id)
+                    expect(res.body.data.email).toEqual(email)
+                    expect(res.body.data.username).toEqual(username)
+                    done();
+                })
+        })
+    })
