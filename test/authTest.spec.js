@@ -13,7 +13,6 @@ describe('POST /api/register', () => {
                 expect(res.body).toHaveProperty('result');
                 expect(res.body).toHaveProperty('message');
                 expect(res.body.result).toEqual('failed');
-
                 done();
             })
     })
@@ -30,7 +29,6 @@ describe('POST /api/register', () => {
                 expect(res.body).toHaveProperty('message');
                 expect(res.body.result).toEqual('failed');
                 expect(res.body.message).toEqual('Email already existed');
-
                 done();
             })
     })
@@ -47,7 +45,6 @@ describe('POST /api/register', () => {
                 expect(res.body).toHaveProperty('message');
                 expect(res.body.result).toEqual('failed');
                 expect(res.body.message).toEqual('Please make your password bigger than 6 characters');
-
                 done();
             })
     })
@@ -64,7 +61,6 @@ describe('POST /api/register', () => {
                 expect(res.body).toHaveProperty('message');
                 expect(res.body.result).toEqual('failed');
                 expect(res.body.message).toEqual('Please enter valid email address');
-
                 done();
             })
     })
@@ -103,7 +99,6 @@ describe('POST /api/login', () => {
                 expect(res.body).toHaveProperty('message');
                 expect(res.body.result).toEqual('Login failed!');
                 expect(res.body.message).toEqual('Try entering the right credentials');
-
                 done();
             })
             
