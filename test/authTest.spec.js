@@ -57,11 +57,11 @@ describe('GET /api/verifyToken', () => {
                 .then(res => {
                     expect(res.statusCode).toBe(200)
                     expect(res.headers.Authorization).toMatch( Authorization )
-                    expect(res.body).toHaveProperty('data')
-                    expect(res.body.data).toHaveProperty('id')
-                    expect(res.body.data).toHaveProperty('email')
-                    expect(res.body.data.id).toEqual(id)
-                    expect(res.body.data.email).toEqual(email)
+                    expect(res.body).toHaveProperty('result')
+                    expect(res.body.result).toHaveProperty('id')
+                    expect(res.body.result).toHaveProperty('email')
+                    expect(res.body.result.id).toEqual(id)
+                    expect(res.body.result.email).toEqual(email)
                     done();
                 })
         })
