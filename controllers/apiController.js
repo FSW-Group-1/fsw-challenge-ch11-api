@@ -46,11 +46,11 @@ module.exports = {
           message: 'Please enter valid email address',
         })
       }
-      if(password.length < 6){
+      if (password.length < 6) {
         return res.status(400).json({
-            result: 'failed',
-            message: 'Please make your password bigger than 6 characters',
-          })
+          result: 'failed',
+          message: 'Please make your password bigger than 6 characters',
+        })
       }
 
       const imageDummy = base('public/dummy.png')
@@ -79,7 +79,7 @@ module.exports = {
       return res.status(500).json({
         result: 'failed',
         message: error.message,
-        error
+        error,
       })
     }
   },
@@ -143,17 +143,9 @@ module.exports = {
     try {
       const { imageID, username, description, imageLink } = req.body
       const id = req.user.id
-      // const imageDummy = base('public/dummy.png')
       console.log(imageID)
 
       let uploadedResponse = ''
-
-      if (!id) {
-        return res.status(400).json({
-          result: 'error',
-          message: 'ID not found',
-        })
-      }
 
       if (imageID) {
         const { resources } = await cloudinary.search.expression().sort_by('public_id').execute()
