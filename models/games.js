@@ -19,7 +19,10 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     description: DataTypes.STRING,
     imageLink: DataTypes.STRING,
-    gameLink: DataTypes.STRING
+    gameLink: DataTypes.STRING,
+    isAvailble: DataTypes.BOOLEAN,
+    videoLink: DataTypes.STRING,
+    videoID: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Games',
