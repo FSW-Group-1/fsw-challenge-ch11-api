@@ -175,6 +175,15 @@ describe('test: token', () => {
         })
     })
 
+    describe('GET /api/me', () => {
+        test('return status: 401 Unauthorized', (done) => {
+          request(app)
+            .get('/api/me')
+            .then((res) => {
+              expect(res.statusCode).toBe(401)
+              done()
+            })
+        })
 // jest.setTimeout(12000)
 
     describe('GET /api/all', () => {
@@ -226,3 +235,4 @@ describe('test: token', () => {
                 })
         })
     })
+})
