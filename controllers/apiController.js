@@ -26,14 +26,6 @@ module.exports = {
             /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
           )
       }
-
-      if (user) {
-        return res.status(400).json({
-          result: 'failed',
-          message: 'Email already existed',
-        })
-      }
-
       if (!username || !email || !password) {
         return res.status(400).json({
           result: 'failed',
@@ -52,6 +44,15 @@ module.exports = {
           message: 'Please make your password bigger than 6 characters',
         })
       }
+      
+      if (user) {
+        return res.status(400).json({
+          result: 'failed',
+          message: 'Email already existed',
+        })
+      }
+
+      
 
       const imageDummy = base('public/dummy.png')
 
@@ -133,9 +134,9 @@ module.exports = {
       })
     })
     //handling dengan tidak ada /me dengan tidak ada token
-      if (!currentUserInfo) {
-        res.status(400).json({ result: 'failed token', message: 'please try re-login' })
-      }
+      // if (!currentUserInfo) {
+      //   res.status(400).json({ result: 'failed token', message: 'please try re-login' })
+      // }
       
     } catch (error) {
       return res.status(401).json({
