@@ -125,15 +125,21 @@ module.exports = {
             as: 'Game',
           },
         },
-      })
+      }).then((currentUserInfo) => {
       res.status(200).json({
         result: 'success',
         message: 'Here is your own info',
         data: currentUserInfo,
       })
+    })
+    //handling dengan tidak ada /me dengan tidak ada token
+      if (!currentUserInfo) {
+        res.status(400).json({ result: 'failed token', message: 'please try re-login' })
+      }
+      
     } catch (error) {
-      return res.status(500).json({
-        result: 'Server failed',
+      return res.status(401).json({
+        result: 'Server Failed',
         error: error.message,
       })
     }
