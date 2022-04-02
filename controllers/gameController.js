@@ -190,7 +190,11 @@ module.exports = {
 
     getAllGame: async(req, res) => {
         try {
-            await Games.findAll().then(game => {
+            await Games.findAll({
+                order: [
+                    ['id', 'ASC']
+                ]
+            }).then(game => {
                 res.status(200).json({
                     result: 'success',
                     message: 'Here is all the game',

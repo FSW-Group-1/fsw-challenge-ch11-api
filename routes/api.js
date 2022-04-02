@@ -9,7 +9,7 @@ router.post('/register', api.register)
 router.post('/login', api.login)
 
 //Profile
-router.get('/me', restrict, api.currentProfile) //Ini disatuin sama playedGame juga bisa
+router.get('/me', api.currentProfile) //Ini disatuin sama playedGame juga bisa
 router.post('/me/update', restrict, api.updateProfile)
 
 router.get('/all', api.showAllProfile)
